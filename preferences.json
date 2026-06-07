@@ -1,0 +1,16 @@
+[
+  {
+    "property": "mod.zen-missing-hotkeys.close-tabs-below",
+    "label": "Close tabs below",
+    "type": "string",
+    "defaultValue": "",
+    "placeholder": "Click and press a shortcut…"
+  },
+  {
+    "property": "mod.zen-missing-hotkeys.close-other-tabs",
+    "label": "Close other tabs",
+    "type": "string",
+    "defaultValue": "",
+    "placeholder": "Click and press a shortcut…"
+  }
+]

@@ -1,0 +1,50 @@
+name: Release
+
+# The Sine store reads theme.json from the main branch HEAD (not from tags or
+# releases), so version/updatedAt must live on main. We use the pushed tag as
+# the single source of truth: it drives both fields and the GitHub release.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Sync version and updatedAt into theme.json on main
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          TODAY="$(date -u +%Y-%m-%d)"
+          tmp="$(mktemp)"
+          jq --arg v "$VERSION" --arg d "$TODAY" \
+            '.version = $v | .updatedAt = $d' theme.json > "$tmp" && mv "$tmp" theme.json
+          echo "theme.json -> version=$VERSION updatedAt=$TODAY"
+
+          if git diff --quiet theme.json; then
+            echo "Already up to date; nothing to commit."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add theme.json
+            git commit -m "chore(release): version $VERSION, updatedAt $TODAY [skip ci]"
+            git push origin main
+          fi
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes
