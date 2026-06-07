@@ -10,12 +10,22 @@
     "zen-missing-hotkeys.uc.js": {
       "name": "Core script",
       "description": "Registers the configurable tab hotkeys and their settings UI.",
-      "include": ["chrome://browser/content/browser.xhtml", "about:preferences*"]
+      "include": [
+        "chrome://browser/content/browser.xhtml",
+        "about:preferences*"
+      ]
     }
   },
   "preferences": "preferences.json",
-  "tags": ["tabs", "productivity", "shortcut", "hotkey"],
-  "fork": ["zen"],
+  "tags": [
+    "tabs",
+    "productivity",
+    "shortcut",
+    "hotkey"
+  ],
+  "fork": [
+    "zen"
+  ],
   "readme": "https://raw.githubusercontent.com/JiPaix/zen-missing-hotkeys/main/README.md",
   "homepage": "https://github.com/JiPaix/zen-missing-hotkeys",
   "createdAt": "2026-06-07",
