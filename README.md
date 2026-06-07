@@ -4,8 +4,6 @@
 
 Keyboard shortcuts for the tab actions Zen doesn't bind out of the box.
 
-https://github.com/user-attachments/assets/e2997974-323d-4c44-aecb-91ceabcf869d
-
 </div>
 
 ## Hotkeys
