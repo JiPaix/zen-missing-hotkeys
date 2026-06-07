@@ -204,7 +204,7 @@
     row.__zmhWired = true;
 
     input.readOnly = true; // capture key presses instead of free typing
-    input.placeholder = "Click, then press a shortcut (Del to clear)";
+    input.placeholder = "Click, then press a shortcut";
     input.style.cursor = "pointer";
 
     const msg = document.createXULElement("description");
@@ -251,19 +251,22 @@
     const refresh = () => {
       const s = parseShortcut(committed);
       if (!isComplete(s)) {
-        setMsg(committed ? "" : "Not set", "info");
+        setMsg("Not set", "info");
         return;
       }
       const internal = findInternalConflict(s, prefOf(action));
       if (internal) return setMsg(`⚠ Also assigned to “${internal}” in this mod.`, "warn");
       const browser = findBrowserConflict(s);
-      setMsg(
-        browser !== null ? (browser ? `⚠ Also used by “${browser}”.` : "⚠ Also used by another shortcut.") : "",
-        "warn"
-      );
+      if (browser !== null) {
+        setMsg(browser ? `⚠ Also used by “${browser}”.` : "⚠ Also used by another shortcut.", "warn");
+      } else {
+        setMsg("Del to clear", "info"); // persistent indicator when a hotkey is set
+      }
     };
 
-    input.addEventListener("focus", () => setMsg("Recording… press your combination", "info"));
+    input.addEventListener("focus", () =>
+      setMsg(committed ? "Recording… press a combination, or Del to clear" : "Recording… press your combination", "info")
+    );
     input.addEventListener("blur", () => {
       input.value = committed; // discard half-recorded display
       refresh();
