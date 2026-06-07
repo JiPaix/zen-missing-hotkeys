@@ -3,7 +3,7 @@
   "name": "Zen's Missing Hotkeys",
   "description": "Adds the tab keyboard shortcuts Zen is missing — close tabs below and close other tabs — each fully customizable (unbound by default).",
   "author": "JiPaix",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "ai": "partial",
   "image": "https://raw.githubusercontent.com/JiPaix/zen-missing-hotkeys/main/logo.png",
   "scripts": {
