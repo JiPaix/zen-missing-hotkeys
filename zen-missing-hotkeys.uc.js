@@ -2,6 +2,7 @@
 // @name         Zen's Missing Hotkeys
 // @include      chrome://browser/content/browser.xhtml
 // @include      about:preferences*
+// @include      about:settings*
 // ==/UserScript==
 
 (function () {
@@ -322,7 +323,8 @@
 
   const href = (document.location && document.location.href) || "";
   if (DEBUG) console.log("[zen-missing-hotkeys] injected into", href);
-  if (href.startsWith("about:preferences")) {
+  const SETTINGS_PREFIXES = ["about:preferences", "about:settings"]; // Zen exposes both
+  if (SETTINGS_PREFIXES.some((p) => href.startsWith(p))) {
     initSettings();
   } else {
     initBrowser();

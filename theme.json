@@ -12,7 +12,8 @@
       "description": "Registers the configurable tab hotkeys and their settings UI.",
       "include": [
         "chrome://browser/content/browser.xhtml",
-        "about:preferences*"
+        "about:preferences*",
+        "about:settings*"
       ]
     }
   },
